@@ -35,4 +35,10 @@ genvm-lint check contracts/carbon_proof.py
 
 Deploy `contracts/carbon_proof.py` through GenLayer Studio or the CLI. It has no constructor parameters. Begin on testnet with a small GEN amount and publicly accessible registry or verification URLs.
 
+## Live Deployment
+
+- Network: GenLayer Bradbury Testnet (chain ID `4221`)
+- Contract: [`0xa05880Ab5139eA05C1936ccbeEF67A15c7eBF789`](https://explorer-bradbury.genlayer.com/address/0xa05880Ab5139eA05C1936ccbeEF67A15c7eBF789)
+- Deploy transaction: [`0x6b4b683e8347f3b9b8d31c60451e66b135ac82b867c97fb33d4b350fcef46dd0`](https://explorer-bradbury.genlayer.com/tx/0x6b4b683e8347f3b9b8d31c60451e66b135ac82b867c97fb33d4b350fcef46dd0)
+
 See [deployment notes](docs/deployment.md) for consensus and escrow-safety details.
