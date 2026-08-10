@@ -2,7 +2,7 @@
 
 A carbon-credit delivery escrow Intelligent Contract for GenLayer.
 
-A buyer escrows GEN for a carbon project developer. The developer submits public registry records, third-party verification reports, and project documentation. GenLayer validators fetch the live proof and reach consensus on whether it meets the delivery criteria, including methodology, registry evidence, and claimed quantity. Verified delivery pays the developer; rejected or expired orders can be refunded to the buyer.
+A buyer escrows GEN for a carbon project developer and names an independent arbiter. The developer submits public registry records, third-party verification reports, and project documentation. GenLayer validators fetch the live proof and reach consensus on whether it meets the delivery criteria, including methodology, registry evidence, and claimed quantity. The verdict can verify payment, request a revision, or reject the order.
 
 ## Lifecycle
 
@@ -11,7 +11,9 @@ create_order (buyer funds GEN)
   -> submit_delivery_proof (developer)
   -> verify_delivery (permissionless validator consensus)
      -> verified: developer paid
-     -> rejected: buyer refunds
+     -> needs revision: developer resubmits, up to three times
+     -> rejected: buyer refunds or either party disputes
+  -> disputed: arbiter approves/rejects, then timeout refunds buyer
   -> expired: buyer refunds
 ```
 
@@ -21,11 +23,13 @@ Source: `contracts/carbon_proof.py`
 
 | Method | Caller | Purpose |
 | --- | --- | --- |
-| `create_order` | Buyer, payable | Defines carbon-credit criteria and funds escrow. |
+| `create_order` | Buyer, payable | Names developer/arbiter, defines criteria, and funds escrow. |
 | `submit_delivery_proof` | Developer | Submits one to eight public proof URLs. |
 | `verify_delivery` | Anyone | Runs live-web AI consensus and records the verdict. |
 | `refund_rejected_order` | Buyer | Refunds a rejected order. |
+| `raise_dispute` / `resolve_dispute` | Party / arbiter | Freezes a live order and gives the named arbiter a binding resolution. |
 | `refund_expired_order` | Anyone | Refunds an unresolved order after its deadline. |
+| `force_default_resolution` | Anyone | Refunds a disputed order after the arbiter grace period. |
 
 ## Verify and Deploy
 
