@@ -47,3 +47,13 @@ Deploy `contracts/carbon_proof.py` through GenLayer Studio or the CLI. It has no
 - Legacy V1: [`0xa05880Ab5139eA05C1936ccbeEF67A15c7eBF789`](https://explorer-bradbury.genlayer.com/address/0xa05880Ab5139eA05C1936ccbeEF67A15c7eBF789)
 
 See [deployment notes](docs/deployment.md) for consensus and escrow-safety details.
+
+## Application
+
+`app/` is a Vite client wired to the live V2 contract. It reads orders with `readContract`, sends payable creation and proof writes with `writeContract`, and lets any connected wallet trigger validator consensus.
+
+```powershell
+cd app
+npm install
+npm run dev
+```
