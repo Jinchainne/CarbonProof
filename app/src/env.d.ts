@@ -1,1 +1,0 @@
-type EthereumProvider = any

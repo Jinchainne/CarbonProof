@@ -1,8 +1,0 @@
-{
-  "name": "carbonproof-app",
-  "private": true,
-  "type": "module",
-  "scripts": { "dev": "vite", "build": "tsc && vite build" },
-  "dependencies": { "genlayer-js": "^1.1.8", "viem": "^2.21.0" },
-  "devDependencies": { "typescript": "^5.8.0", "vite": "^6.3.0" }
-}

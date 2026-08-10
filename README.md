@@ -48,12 +48,6 @@ Deploy `contracts/carbon_proof.py` through GenLayer Studio or the CLI. It has no
 
 See [deployment notes](docs/deployment.md) for consensus and escrow-safety details.
 
-## Application
+## Submission Scope
 
-`app/` is a Vite client wired to the live V2 contract. It reads orders with `readContract`, sends payable creation and proof writes with `writeContract`, and lets any connected wallet trigger validator consensus.
-
-```powershell
-cd app
-npm install
-npm run dev
-```
+This repository intentionally contains a standalone Intelligent Contract primitive, not a frontend product. Builders can reuse the escrow, consensus, revision, dispute, and timeout mechanisms in carbon-market, climate-finance, or other evidence-backed settlement applications. See [consensus design](docs/consensus.md).
