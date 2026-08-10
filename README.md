@@ -42,7 +42,8 @@ Deploy `contracts/carbon_proof.py` through GenLayer Studio or the CLI. It has no
 ## Live Deployment
 
 - Network: GenLayer Bradbury Testnet (chain ID `4221`)
-- Contract: [`0xa05880Ab5139eA05C1936ccbeEF67A15c7eBF789`](https://explorer-bradbury.genlayer.com/address/0xa05880Ab5139eA05C1936ccbeEF67A15c7eBF789)
-- Deploy transaction: [`0x6b4b683e8347f3b9b8d31c60451e66b135ac82b867c97fb33d4b350fcef46dd0`](https://explorer-bradbury.genlayer.com/tx/0x6b4b683e8347f3b9b8d31c60451e66b135ac82b867c97fb33d4b350fcef46dd0)
+- V2 contract: [`0xa544fF6D28aD72151a29ADaDCAEeB1821431DD74`](https://explorer-bradbury.genlayer.com/address/0xa544fF6D28aD72151a29ADaDCAEeB1821431DD74)
+- V2 deploy transaction: [`0x8a0445f94bc970c07a96effa6da9c4a3acd657d51b4bdc8725d03d0eaca9d2a4`](https://explorer-bradbury.genlayer.com/tx/0x8a0445f94bc970c07a96effa6da9c4a3acd657d51b4bdc8725d03d0eaca9d2a4)
+- Legacy V1: [`0xa05880Ab5139eA05C1936ccbeEF67A15c7eBF789`](https://explorer-bradbury.genlayer.com/address/0xa05880Ab5139eA05C1936ccbeEF67A15c7eBF789)
 
 See [deployment notes](docs/deployment.md) for consensus and escrow-safety details.
