@@ -2,7 +2,8 @@ import { createClient } from 'genlayer-js'
 import { testnetBradbury } from 'genlayer-js/chains'
 import { parseEther } from 'viem'
 
-export const CONTRACT_ADDRESS = (import.meta as any).env?.VITE_CONTRACT_ADDRESS as string
+export const CONTRACT_ADDRESS = ((import.meta as any).env?.VITE_CONTRACT_ADDRESS as string)
+  || '0x54AD563960f0FF58F3713a265c3549BC61F84Aaf'
 export const RPC_URL = 'https://rpc-bradbury.genlayer.com'
 
 function readClient() {

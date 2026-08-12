@@ -54,3 +54,9 @@ cd client
 npm install
 npm run typecheck
 ```
+
+## Live deployment
+
+- Network: GenLayer Bradbury Testnet (chain ID `4221`)
+- Contract: [`0x54AD563960f0FF58F3713a265c3549BC61F84Aaf`](https://explorer-bradbury.genlayer.com/address/0x54AD563960f0FF58F3713a265c3549BC61F84Aaf)
+- Deployment transaction: [`0x91f9b7532f2b865941003ab148debbe6bb46e6184b91a5103e92e7ea350907a8`](https://explorer-bradbury.genlayer.com/tx/0x91f9b7532f2b865941003ab148debbe6bb46e6184b91a5103e92e7ea350907a8)
