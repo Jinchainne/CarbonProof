@@ -3,3 +3,6 @@ __pycache__/
 .env
 .env.local
 app/
+.gitignore
+node_modules/
+client/node_modules/
