@@ -1,0 +1,8 @@
+{
+  "name": "carbonproof-client",
+  "private": true,
+  "type": "module",
+  "scripts": {"typecheck": "tsc --noEmit"},
+  "dependencies": {"genlayer-js": "^1.1.8", "viem": "^2.21.0"},
+  "devDependencies": {"typescript": "^5.8.0"}
+}

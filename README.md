@@ -1,52 +1,56 @@
 # CarbonProof
 
-A carbon-credit delivery escrow Intelligent Contract for GenLayer.
+CarbonProof is a GenLayer-powered carbon registry reconciliation monitor. It
+does not hold GEN and does not pay or refund a counterparty. A project owner
+registers an identity, methodology, claimed quantity, and public evidence.
+Validators independently inspect the live sources and reach consensus on
+whether the record is verified, needs remediation, or is blocked for a likely
+serial-number conflict or false identity.
 
-A buyer escrows GEN for a carbon project developer and names an independent arbiter. The developer submits public registry records, third-party verification reports, and project documentation. GenLayer validators fetch the live proof and reach consensus on whether it meets the delivery criteria, including methodology, registry evidence, and claimed quantity. The verdict can verify payment, request a revision, or reject the order.
+## Why GenLayer
 
-## Lifecycle
+Registry data is heterogeneous, changes over time, and is often distributed
+across PDFs, project pages, and retirement records. `assess_project` uses
+`gl.nondet.web.render` and `gl.nondet.exec_prompt` inside
+`gl.eq_principle.prompt_comparative`; the consensus-bound fields are status,
+risk level, and serial-conflict flag. The result is stored as the project's
+current audit status.
+
+## Workflow
 
 ```text
-create_order (buyer funds GEN)
-  -> submit_delivery_proof (developer)
-  -> verify_delivery (permissionless validator consensus)
-     -> verified: developer paid
-     -> needs revision: developer resubmits, up to three times
-     -> rejected: buyer refunds or either party disputes
-  -> disputed: arbiter approves/rejects, then timeout refunds buyer
-  -> expired: buyer refunds
+register_project (owner writes project + evidence)
+  -> assess_project (any caller triggers live multi-validator reconciliation)
+     -> verified
+     -> remediation_required -> submit_remediation -> assess_project
+     -> blocked (serial conflict / false identity)
 ```
 
-## Contract
+Remediation is capped at three rounds. The contract has no escrow, settlement,
+arbiter, payout, refund, or delivery-dispute lifecycle.
 
-Source: `contracts/carbon_proof.py`
+## Application client
 
-| Method | Caller | Purpose |
-| --- | --- | --- |
-| `create_order` | Buyer, payable | Names developer/arbiter, defines criteria, and funds escrow. |
-| `submit_delivery_proof` | Developer | Submits one to eight public proof URLs. |
-| `verify_delivery` | Anyone | Runs live-web AI consensus and records the verdict. |
-| `refund_rejected_order` | Buyer | Refunds a rejected order. |
-| `raise_dispute` / `resolve_dispute` | Party / arbiter | Freezes a live order and gives the named arbiter a binding resolution. |
-| `refund_expired_order` | Anyone | Refunds an unresolved order after its deadline. |
-| `force_default_resolution` | Anyone | Refunds a disputed order after the arbiter grace period. |
+`client/src/carbonProofClient.ts` is a real GenLayer client path. It uses
+`readContract` for project dashboards and `writeContract` for registration,
+assessment, and remediation. Set `VITE_CONTRACT_ADDRESS`, run `npm install`
+inside `client`, and use the exported functions from a wallet-connected UI.
 
-## Verify and Deploy
+## Contract methods
+
+| Method | Purpose |
+| --- | --- |
+| `register_project` | Stores a project identity and evidence sources. |
+| `assess_project` | Fetches live sources and writes consensus status/risk. |
+| `submit_remediation` | Replaces evidence after a failed/incomplete review. |
+| `get_project` | Reads the complete audit record. |
+| `list_project_ids` / `list_projects_for` | Reads project indexes. |
+
+## Verification
 
 ```powershell
 genvm-lint check contracts/carbon_proof.py
+cd client
+npm install
+npm run typecheck
 ```
-
-Deploy `contracts/carbon_proof.py` through GenLayer Studio or the CLI. It has no constructor parameters. Begin on testnet with a small GEN amount and publicly accessible registry or verification URLs.
-
-## Live Deployment
-
-- Network: GenLayer Bradbury Testnet (chain ID `4221`)
-- Contract: [`0xa544fF6D28aD72151a29ADaDCAEeB1821431DD74`](https://explorer-bradbury.genlayer.com/address/0xa544fF6D28aD72151a29ADaDCAEeB1821431DD74)
-- Deploy transaction: [`0x8a0445f94bc970c07a96effa6da9c4a3acd657d51b4bdc8725d03d0eaca9d2a4`](https://explorer-bradbury.genlayer.com/tx/0x8a0445f94bc970c07a96effa6da9c4a3acd657d51b4bdc8725d03d0eaca9d2a4)
-
-See [deployment notes](docs/deployment.md) for consensus and escrow-safety details.
-
-## Submission Scope
-
-This repository intentionally contains a standalone Intelligent Contract primitive, not a frontend product. Builders can reuse the escrow, consensus, revision, dispute, and timeout mechanisms in carbon-market, climate-finance, or other evidence-backed settlement applications. See [consensus design](docs/consensus.md).
